@@ -151,7 +151,7 @@ if('serviceWorker' in navigator && (location.protocol==='https:' || location.hos
  const $id=id=>document.getElementById(id), cfgKey='brightsteps_cloud_config_v1';
  let client=null, supabaseModule=null, currentUser=null;
  const status=(id,msg)=>{const el=$id(id);if(el)el.textContent=msg};
- const b64=bytes=>btoa(String.fromCharCode(...new Uint8Array(bytes)));
+ const b64=buffer=>{const bytes=new Uint8Array(buffer);let binary='';for(let i=0;i<bytes.length;i+=0x8000)binary+=String.fromCharCode(...bytes.subarray(i,i+0x8000));return btoa(binary)};
  const unb64=str=>Uint8Array.from(atob(str),c=>c.charCodeAt(0));
  async function cryptoKey(pass,salt){const material=await crypto.subtle.importKey('raw',new TextEncoder().encode(pass),'PBKDF2',false,['deriveKey']);return crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:310000,hash:'SHA-256'},material,{name:'AES-GCM',length:256},false,['encrypt','decrypt'])}
  function readBook(){const raw=localStorage.getItem('brightsteps_profile_book_v1');if(!raw)throw new Error('No learner profile data was found on this device.');return JSON.parse(raw)}
