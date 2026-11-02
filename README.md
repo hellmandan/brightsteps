@@ -10,17 +10,24 @@ BrightSteps is an inclusive, browser-based learning prototype designed to suppor
 
 ## Included files
 
-- `index.html` — interactive application.
+- `index.html` — interactive learning application and optional encrypted-backup interface.
 - `manifest.webmanifest` — Progressive Web App metadata.
-- `service-worker.js` — basic offline cache.
+- `service-worker.js` — offline cache.
+- `supabase/migrations/` — owner-only encrypted vault table and Row Level Security policies.
+- `supabase/README.md` — Supabase project setup.
+- `SECURITY.md` and `PRIVACY.md` — development-stage security and privacy boundaries.
+- `docs/PRODUCTION_CHECKLIST.md` — remaining production work.
+- `tests/smoke_test.py` — repository smoke tests.
 
 ## Current scope and limitations
 
 This is a **front-end MVP/prototype**, not a production child-data platform. Learner profiles and activity records are stored in browser `localStorage` on the current device. They are not encrypted, automatically backed up, or synchronised between devices.
 
-This repository does not include authenticated parent, teacher or therapist accounts, role-based access controls, a cloud database, a connected AI model, clinical assessments, or a certified curriculum. The learning activities are examples, not therapy, diagnosis, or a substitute for individual professional advice.
+The repository now includes an optional Supabase sign-in and client-side encrypted personal backup foundation. It still does **not** include an owner-configured Supabase project, shared parent/teacher/therapist accounts, learner invitations or delegated permissions, a connected AI model, clinical assessments, or a certified curriculum. The learning activities are examples, not therapy, diagnosis, or a substitute for individual professional advice.
 
-**Do not enter sensitive health, diagnostic, school, or identifying information.** Before real-world use with children, complete a privacy and security review, accessibility testing with neurodivergent users, safeguarding review, professional content review, and applicable legal compliance assessment.
+To enable encrypted backup, the project owner must create a Supabase project and apply the SQL migration described in `supabase/README.md`. The website cannot connect to a backend until the owner supplies the project URL and publishable/anon key. Never use a service-role key in the browser. The cloud vault is single-account and encrypted in the browser; it is not a collaboration system.
+
+**Do not enter sensitive health, diagnostic, school, or identifying information.** Local browser data is not encrypted at rest. The encrypted cloud backup is optional and requires owner setup; losing its passphrase makes the backup unrecoverable. Before real-world use with children, complete every item in `docs/PRODUCTION_CHECKLIST.md`, including privacy/security review, accessibility testing with neurodivergent users, safeguarding review, professional content review, and applicable legal compliance assessment.
 
 ## Contributing
 
